@@ -1,7 +1,7 @@
 resource "google_compute_instance" "terraform-instance" {
 	name = "client-node-1"
 	machine_type = "e2-medium"
-	zone = "us-central-a"
+	zone = "us-central1-a"
 	labels = {
 	  team = "gcp"
 	}
