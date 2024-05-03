@@ -12,6 +12,7 @@ resource "google_compute_instance" "terraform-instance" {
                    }
 	network_interface {
 	  network = "projects/devops-engineer-123/global/networks/my-vpc-01"
+	  subnetwork = "projects/devops-engineer-123/regions/us-central1/subnetworks/subnet-01"
         access_config {
                     }
 }
