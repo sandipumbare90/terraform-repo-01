@@ -3,7 +3,7 @@ resource "google_compute_instance" "terraform-instance" {
 	machine_type = "e2-medium"
 	zone = "us-central1-a"
 	labels = {
-	  team = "GCP"
+	  team = "gcp"
 	}
 	boot_disk {
           initialize_params {
