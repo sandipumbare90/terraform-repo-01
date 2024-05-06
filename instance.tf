@@ -51,7 +51,7 @@ resource "google_compute_resource_policy" "my-policy-for-snapshot-creation" {
                            }
                    }
 	  retention_policy {
-	    max_retention_day = 3
+	    max_retention_days = 3
             on_source_disk_delete = "KEEP_AUTO_SNAPSHOTS"
                           }  
               }
@@ -59,8 +59,8 @@ resource "google_compute_resource_policy" "my-policy-for-snapshot-creation" {
 
 #-------Resource Policy Attachment------#
 
-resource "google_compute_resource_policy_attachment" "my-first-policy-attachment" {
+resource "google_compute_disk_resource_policy_attachment" "my-first-policy-attachment" {
 	name = google_compute_resource_policy.my-policy-for-snapshot-creation.name
 	disk = google_compute_disk.data-disk-01.id
-	zone = us-central1-a
+	zone = "us-central1-a"
 }
