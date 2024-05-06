@@ -3,12 +3,8 @@ resource "google_compute_instance" "terraform-instance" {
 	machine_type = "e2-medium"
 	zone = "us-central1-a"
 	labels = {
-<<<<<<< HEAD
 	  team = "devops"
 	  depart = "hr"
-=======
-	  team = "gcp"
->>>>>>> parent of 1325d4f (label updated)
 	}
 	boot_disk {
           initialize_params {
