@@ -37,3 +37,30 @@ resource "google_compute_attached_disk" "disk-attach-policy" {
 	instance = google_compute_instance.terraform-instance.name
 	zone = "us-central1-a"
 }
+
+#------Snapshot Resource Policy Creation-----#
+
+resource "google_compute_resource_policy" "my-policy-for-snapshot-creation" {
+	name = "first-policy-for-snapshot-cre"
+	region = "us-central1"
+	snapshot_schedule_policy {
+	  schedule {
+	    daily_schedule {
+	      days_in_cycle = 1
+	      start_time = "00:00"
+                           }
+                   }
+	  retention_policy {
+	    max_retention_day = 3
+            on_source_disk_delete = "KEEP_AUTO_SNAPSHOTS"
+                          }  
+              }
+}
+
+#-------Resource Policy Attachment------#
+
+resource "google_compute_resource_policy_attachment" "my-first-policy-attachment" {
+	name = google_compute_resource_policy.my-policy-for-snapshot-creation.name
+	disk = google_compute_disk.data-disk-01.id
+	zone = us-central1-a
+}
