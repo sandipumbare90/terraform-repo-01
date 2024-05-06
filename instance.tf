@@ -29,3 +29,10 @@ resource "google_compute_disk" "data-disk-01" {
 	size = "10"
 	type = "pd-standard"
 }
+
+#------Attach Disk-----#
+
+resource "google_compute_attached_disk" "disk-attach-policy" {
+	disk = google_compute_disk.data-disk-01.id
+	instance = google_compute_instance.terraform-instance.name
+}
