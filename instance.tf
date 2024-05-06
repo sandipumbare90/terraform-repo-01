@@ -63,6 +63,6 @@ resource "google_compute_resource_policy" "my-policy-for-snapshot-creation" {
 
 resource "google_compute_disk_resource_policy_attachment" "my-first-policy-attachment" {
 	name = google_compute_resource_policy.my-policy-for-snapshot-creation.name
-	disk = google_compute_disk.data-disk-01.id
+	disk = google_compute_disk.data-disk-01.name
 	zone = "us-central1-a"
 }
