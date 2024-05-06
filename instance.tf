@@ -16,12 +16,10 @@ resource "google_compute_instance" "terraform-instance" {
 	  subnetwork = "projects/devops-engineer-123/regions/us-central1/subnetworks/subnet-01"
         access_config {
                     }
+		}
 	lifecycle {
           ignore_changes = [attached_disk]
                   } 
-
-}
-
 
 }
 
