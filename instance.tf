@@ -3,8 +3,12 @@ resource "google_compute_instance" "terraform-instance" {
 	machine_type = "e2-medium"
 	zone = "us-central1-a"
 	labels = {
+<<<<<<< HEAD
 	  team = "devops"
 	  depart = "hr"
+=======
+	  team = "gcp"
+>>>>>>> parent of 1325d4f (label updated)
 	}
 	boot_disk {
           initialize_params {
@@ -19,4 +23,13 @@ resource "google_compute_instance" "terraform-instance" {
 }
 
 
+}
+
+#------Extra Disk to VM Instance-----#
+
+resource "google_compute_disk" "data-disk-01" {
+	name = "data-disk-01"
+	zone = "us-central1-a"
+	size = "10GB"
+	type = "pd-standard"
 }
