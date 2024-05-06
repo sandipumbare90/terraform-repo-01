@@ -26,6 +26,6 @@ resource "google_compute_instance" "terraform-instance" {
 resource "google_compute_disk" "data-disk-01" {
 	name = "data-disk-01"
 	zone = "us-central1-a"
-	size = "10GB"
+	size = "10"
 	type = "pd-standard"
 }
