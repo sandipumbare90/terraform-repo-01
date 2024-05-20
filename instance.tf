@@ -28,7 +28,7 @@ resource "google_compute_instance" "terraform-instance" {
 resource "google_compute_disk" "data-disk-01" {
 	name = "data-disk-01"
 	zone = "us-central1-a"
-	size = "20"
+	size = "30"
 	type = "pd-standard"
 }
 
@@ -65,4 +65,31 @@ resource "google_compute_disk_resource_policy_attachment" "my-first-policy-attac
 	name = google_compute_resource_policy.my-policy-for-snapshot-creation.name
 	disk = google_compute_disk.data-disk-01.name
 	zone = "us-central1-a"
+}
+
+#--------GCS Bucket Creation and IAM Bindings------#
+
+resource "google_storage_bucket" "gcs-bucket-object-storage" {
+  name = "gcs-bucket-object-storage"
+  location = "US"
+  storage_class = "NEARLINE"
+  lifecycle_rule {
+    condition {
+      age = 32
+     }
+    action {
+      type = "Delete"
+          }
+    }
+
+}
+
+
+#------------GCS Bucket Role Bindung-----#
+resource "google_storage_bucket_iam_binding" "my-first-iam-bucket-binding-for-gcs-bucket" {
+  bucket = google_storage_bucket.gcs-bucket-object-storage.name
+  role = "roles/storage.admin"
+  members = [
+    "user:snumbare123@gmail.com"
+            ]
 }
