@@ -35,6 +35,13 @@ resource "google_compute_disk" "data-disk-01" {
   type = "pd-standard"
 }
 
+resource "google_compute_disk" "data-disk-02" {
+  name = "data-restore-disk-01"
+  zone = "us-central1-a"
+  size = "30"
+  type = "pd-balanced"
+}
+
 #------Attach Disk-----#
 
 resource "google_compute_attached_disk" "disk-attach-policy" {
