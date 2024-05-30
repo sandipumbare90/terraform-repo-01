@@ -5,6 +5,7 @@ resource "google_compute_instance" "terraform-instance" {
   labels = {
     team   = "devops"
     depart = "it"
+    env = "lab"
   }
   boot_disk {
     initialize_params {
