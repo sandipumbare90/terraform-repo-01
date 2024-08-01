@@ -13,30 +13,30 @@ resource "google_compute_instance" "terraform-instance" {
     }
   }
   network_interface {
-    network    = "projects/devops-engineer-123/global/networks/my-vpc-01"
-    subnetwork = "projects/devops-engineer-123/regions/us-central1/subnetworks/subnet-01"
+    network    = "default"
+    # subnetwork = "projects/devops-engineer-123/regions/us-central1/subnetworks/subnet-01"
     access_config {
     }
   }
-  lifecycle {
+  /*lifecycle {
     ignore_changes = [attached_disk]
   }
   attached_disk {
     source = "projects/devops-engineer-123/zones/us-central1-a/disks/data-restore-disk-01"
-  }
+  }*/
 
 }
 
 #------Extra Disk to VM Instance-----#
 
-resource "google_compute_disk" "data-disk-01" {
+#resource "google_compute_disk" "data-disk-01" {
   name = "data-disk-01"
   zone = "us-central1-a"
   size = "30"
   type = "pd-standard"
 }
 
-resource "google_compute_disk" "data-disk-02" {
+#resource "google_compute_disk" "data-disk-02" {
   name = "data-restore-disk-01"
   zone = "us-central1-a"
   size = "30"
@@ -45,7 +45,7 @@ resource "google_compute_disk" "data-disk-02" {
 
 #------Attach Disk-----#
 
-resource "google_compute_attached_disk" "disk-attach-policy" {
+#resource "google_compute_attached_disk" "disk-attach-policy" {
   disk     = google_compute_disk.data-disk-01.id
   instance = google_compute_instance.terraform-instance.name
   zone     = "us-central1-a"
@@ -53,7 +53,7 @@ resource "google_compute_attached_disk" "disk-attach-policy" {
 
 #------Snapshot Resource Policy Creation-----#
 
-resource "google_compute_resource_policy" "my-policy-for-snapshot-creation" {
+#resource "google_compute_resource_policy" "my-policy-for-snapshot-creation" {
   name   = "first-policy-for-snapshot-cre"
   region = "us-central1"
   snapshot_schedule_policy {
@@ -72,7 +72,7 @@ resource "google_compute_resource_policy" "my-policy-for-snapshot-creation" {
 
 #-------Resource Policy Attachment------#
 
-resource "google_compute_disk_resource_policy_attachment" "my-first-policy-attachment" {
+#resource "google_compute_disk_resource_policy_attachment" "my-first-policy-attachment" {
   name = google_compute_resource_policy.my-policy-for-snapshot-creation.name
   disk = google_compute_disk.data-disk-01.name
   zone = "us-central1-a"
@@ -80,7 +80,7 @@ resource "google_compute_disk_resource_policy_attachment" "my-first-policy-attac
 
 #--------GCS Bucket Creation and IAM Bindings------#
 
-resource "google_storage_bucket" "gcs-bucket-object-storage" {
+#resource "google_storage_bucket" "gcs-bucket-object-storage" {
   name          = "gcs-bucket-object-storage"
   location      = "US"
   storage_class = "NEARLINE"
@@ -97,7 +97,7 @@ resource "google_storage_bucket" "gcs-bucket-object-storage" {
 
 
 #------------GCS Bucket Role Bindung-----#
-resource "google_storage_bucket_iam_binding" "my-first-iam-bucket-binding-for-gcs-bucket" {
+#resource "google_storage_bucket_iam_binding" "my-first-iam-bucket-binding-for-gcs-bucket" {
   bucket = google_storage_bucket.gcs-bucket-object-storage.name
   role   = "roles/storage.admin"
   members = [
